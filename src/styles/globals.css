@@ -20,16 +20,26 @@
     background-color: white;
 }
 
+@layer components{
+  .iberia-bg-color {
+    background-color: var(--iberia-background-color);
+  }
+}
+
 body {
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
 }
 
+h1 {
+    @apply text-2xl mb-2;
+}
+
 input {
     @apply border-2 p-2;
 }
 
-.iberia-bg-color {
-    background-color: var(--iberia-background-color);
+button {
+    @apply iberia-bg-color text-white p-2;
 }

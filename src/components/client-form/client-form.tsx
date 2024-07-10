@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Header from "@/components/header/header";
+import {PROFILES} from "@/constants";
 
 const ClientForm = () => {
   return (
@@ -15,9 +16,7 @@ const ClientForm = () => {
           <div className="w-fit">
             <label className="mr-4">Perfil usuario:</label>
             <select className="border-2 p-2">
-              <option>Familia</option>
-              <option>Joven (Erasmus)</option>
-              <option>Negocios</option>
+              {PROFILES.map((PROFILE) => (<option>{PROFILE}</option>))}
             </select>
           </div>
         </div>
