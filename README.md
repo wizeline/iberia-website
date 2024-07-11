@@ -4,6 +4,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+You probably need to install `next`:
+
+```bash
+npm install next@latest
+```
+
+
 First, run the development server:
 
 ```bash
