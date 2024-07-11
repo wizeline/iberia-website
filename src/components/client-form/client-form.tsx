@@ -1,7 +1,7 @@
 import Header from '@/components/header/header';
 import { DESTINATIONS, PROFILES } from '@/constants';
 import { useLocalStorage } from 'usehooks-ts';
-import { LocalStorageImgUrls } from '@/types';
+import { LocalStorageImgUrls, Profile } from '@/types';
 import { useEffect, useState } from 'react';
 import { getLocalStorageKey } from '@/utils';
 
@@ -11,7 +11,9 @@ const ClientForm = () => {
     {},
   );
   const [destination, setDestination] = useState(DESTINATIONS[0]);
-  const [profile, setProfile] = useState(PROFILES[0]);
+  const [profile, setProfile] = useState<Profile>(
+    Object.keys(PROFILES)[0] as Profile,
+  );
   const [relevantUrls, setRelevantUrls] = useState<string[]>([]);
 
   useEffect(() => {
@@ -37,9 +39,9 @@ const ClientForm = () => {
           <label className="mr-4">Perfil usuario:</label>
           <select
             className="border-2 p-2"
-            onChange={(e) => setProfile(e.currentTarget.value)}
+            onChange={(e) => setProfile(e.currentTarget.value as Profile)}
           >
-            {PROFILES.map((profile) => (
+            {Object.keys(PROFILES).map((profile) => (
               <option key={profile}>{profile}</option>
             ))}
           </select>
