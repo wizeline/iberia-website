@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 import { LocalStorageImgUrls, Profile } from '@/types';
 import { addUrl } from '@/utils';
+import styles from './index.module.css';
 
 function getPrompt(profileKey: Profile, destination: string): string {
   const profile = PROFILES[profileKey];
@@ -110,8 +111,9 @@ const AdminPage = () => {
         </form>
         <div className="mt-4">
           {loading && (
-            <div className="text-center">
+            <div className="text-center loading-image">
               <p>Generando imagen...</p>
+              <img className={styles.loading} src="/plane.svg" alt="Avión" />
             </div>
           )}
           {generatedImgUrl && (
