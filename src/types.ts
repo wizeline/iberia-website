@@ -1,4 +1,4 @@
-export type Profile = 'Familia' | 'Joven (Erasmus)' | 'Negocios';
+export type Profile = 'family' | 'young' | 'business';
 
 export type LocalStorageImgUrls = {
   [key: string]: string[];
