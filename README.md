@@ -4,7 +4,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-You probably need to install `next`:
+You'll need `npm`. It's recommended to install `nvm` so you can have multiple versions of `node` and `npm` installed. Check the installation instructions [here](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating).
+
+You might need to install `next`:
 
 ```bash
 npm install next@latest
@@ -27,7 +29,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/generate](http://localhost:3000/api/generate). This endpoint can be edited in `pages/api/generate.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
