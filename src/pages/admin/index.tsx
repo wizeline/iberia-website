@@ -1,11 +1,12 @@
 import Header from '@/components/header/header';
-import { DESTINATIONS, PROFILES } from '@/constants';
+import { DESTINATIONS, ENGINES, PROFILES } from '@/constants';
 import { useEffect, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { LocalStorageImgUrls, Profile } from '@/types';
+import { Engine, LocalStorageImgUrls, Profile } from '@/types';
 import { addUrl } from '@/utils';
 import styles from './index.module.css';
 import { saveApiRequest } from '@/pages/api/save';
+import { generateApiRequest } from '@/pages/api/generate';
 
 function getPrompt(profileKey: Profile, destination: string): string {
   const profile = PROFILES[profileKey];
@@ -16,6 +17,9 @@ const AdminPage = () => {
   const [destination, setDestination] = useState(DESTINATIONS[0]);
   const [profile, setProfile] = useState<Profile>(
     Object.keys(PROFILES)[0] as Profile,
+  );
+  const [engine, setEngine] = useState<Engine>(
+    Object.keys(ENGINES)[0] as Engine,
   );
   const [prompt, setPrompt] = useState(
     getPrompt(Object.keys(PROFILES)[0] as Profile, DESTINATIONS[0]),
@@ -42,11 +46,12 @@ const AdminPage = () => {
     setLoading(true);
     setGeneratedImgUrl('');
 
-    const formData = { destination, profile, prompt };
+    /*const formData = { engine, prompt };
     const response = await fetch('/api/generate', {
       method: 'POST',
       body: JSON.stringify(formData),
-    });
+    });*/
+    const response = await generateApiRequest(prompt, engine);
     if (response.status === 200) {
       const data = await response.json();
       setGeneratedImgUrl(data.imageData);
@@ -109,6 +114,20 @@ const AdminPage = () => {
               ))}
             </select>
           </div>
+        </div>
+        <div className="mt-4">
+          <label className="mr-4">Modelo de IA:</label>
+          <select
+            className="border-2 p-2"
+            name="e"
+            onChange={(e) => setEngine(e.currentTarget.value as Engine)}
+          >
+            {Object.keys(ENGINES).map((engine) => (
+              <option key={engine} value={engine}>
+                {ENGINES[engine as Engine]}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mt-4">
           <label>Prompt:</label>

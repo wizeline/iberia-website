@@ -1,4 +1,4 @@
-import { Profile } from '@/types';
+import { Engine, Profile } from '@/types';
 
 export const PROFILES: Record<Profile, string> = {
   family: 'Family traveler',
@@ -12,3 +12,8 @@ export const DESTINATIONS = [
   'Paris, France',
   'Rome, Italy',
 ];
+
+export const ENGINES: Record<Engine, string> = {
+  open: 'OpenAI Dall-E 3',
+  free: 'FreePik',
+};
