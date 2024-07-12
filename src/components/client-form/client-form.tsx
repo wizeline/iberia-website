@@ -50,7 +50,7 @@ const ClientForm = () => {
       {relevantUrls.length > 0 && (
         <div className="w-[1200px] mt-4 m-auto flex flex-col gap-4">
           {relevantUrls.map((url) => (
-            <img src={url} alt="Imagen generada" />
+            <img key={url} src={url} alt="Imagen generada" />
           ))}
         </div>
       )}
