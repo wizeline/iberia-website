@@ -1,9 +1,9 @@
 import { Profile } from '@/types';
 
 export const PROFILES: Record<Profile, string> = {
-  Familia: 'Family traveler',
-  'Joven (Erasmus)': 'Youth traveler (Erasmus)',
-  Negocios: 'Business traveler',
+  family: 'Family traveler',
+  young: 'Youth traveler (Erasmus)',
+  business: 'Business traveler',
 };
 export const DESTINATIONS = [
   'Amsterdam, Netherlands',
