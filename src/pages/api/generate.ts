@@ -10,7 +10,7 @@ export default async function handler(
   _res: NextApiResponse<GenerateResponse>,
 ) {
   const requestBody = JSON.parse(_req.body);
-  console.log('Body: ', requestBody.prompt);
+  console.log(process.env.OPENAI_API_KEY);
   /*const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   const res = await fetch(`${serverUrl}/generate`, {
     method: 'POST',
@@ -27,7 +27,7 @@ export default async function handler(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
         model: 'dall-e-3',
