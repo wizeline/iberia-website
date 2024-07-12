@@ -47,15 +47,19 @@ const AdminPage = () => {
       body: JSON.stringify(formData),
     });
     const data = await response.json();
-    setGeneratedImgUrl(data.imageData);
+    if (response.status === 200) {
+      setGeneratedImgUrl(data.imageData);
 
-    const newSavedUrls = addUrl(
-      profile,
-      destination,
-      data.imageData,
-      savedUrls,
-    );
-    setSavedUrls(newSavedUrls);
+      const newSavedUrls = addUrl(
+        profile,
+        destination,
+        data.imageData,
+        savedUrls,
+      );
+      setSavedUrls(newSavedUrls);
+    } else {
+      console.error('Error generating image', data.imageData);
+    }
   }
 
   return (
