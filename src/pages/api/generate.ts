@@ -22,22 +22,27 @@ export default async function handler(
   const text = await res.text();
   _res.status(200).send({ imageData: text });*/
   const openAIUrl = 'https://api.openai.com/v1/images/generations';
-  const res = await fetch(openAIUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: 'dall-e-3',
-      prompt: requestBody.prompt,
-      n: 1,
-      quality: 'hd',
-      style: 'natural',
-      size: '1792x1024',
-    }),
-  });
-  const json = await res.json();
-  console.log(json);
-  _res.status(200).send({ imageData: json.data[0].url });
+  try {
+    const res = await fetch(openAIUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'dall-e-3',
+        prompt: requestBody.prompt,
+        n: 1,
+        quality: 'hd',
+        style: 'natural',
+        size: '1792x1024',
+      }),
+    });
+    const json = await res.json();
+    console.log(json);
+    _res.status(200).send({ imageData: json.data[0].url });
+  } catch (error: unknown) {
+    console.error('Error:', error);
+    _res.status(500).send({ imageData: JSON.stringify(error) });
+  }
 }
