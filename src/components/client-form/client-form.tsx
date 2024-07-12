@@ -1,8 +1,9 @@
 import Header from '@/components/header/header';
 import { DESTINATIONS, PROFILES } from '@/constants';
-import { useLocalStorage } from 'usehooks-ts';
 import { LocalStorageImgUrls, Profile } from '@/types';
 import { useEffect, useState } from 'react';
+import { retrieveApiRequest, RetrieveResponse } from '@/pages/api/retrieve';
+import { useLocalStorage } from 'usehooks-ts';
 import { getLocalStorageKey } from '@/utils';
 
 const ClientForm = () => {
@@ -16,8 +17,40 @@ const ClientForm = () => {
   );
   const [relevantUrls, setRelevantUrls] = useState<string[]>([]);
 
+  function retrieveRelevantUrls() {
+    retrieveApiRequest()
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            setRelevantUrls(
+              data
+                .filter(
+                  (obj: RetrieveResponse) =>
+                    obj.tag === profile && obj.destination === destination,
+                )
+                .map((obj: RetrieveResponse) => obj.url),
+            );
+          });
+        } else {
+          setRelevantUrls(
+            savedUrls[getLocalStorageKey(profile, destination)] || [],
+          );
+        }
+      })
+      .catch(() => {
+        setRelevantUrls(
+          savedUrls[getLocalStorageKey(profile, destination)] || [],
+        );
+      });
+  }
+
   useEffect(() => {
-    setRelevantUrls(savedUrls[getLocalStorageKey(profile, destination)] || []);
+    retrieveRelevantUrls();
+  }, []);
+
+  useEffect(() => {
+    //setRelevantUrls(savedUrls[getLocalStorageKey(profile, destination)] || []);
+    retrieveRelevantUrls();
   }, [destination, profile]);
 
   return (
@@ -42,7 +75,9 @@ const ClientForm = () => {
             onChange={(e) => setProfile(e.currentTarget.value as Profile)}
           >
             {Object.keys(PROFILES).map((profile) => (
-              <option key={profile}>{profile}</option>
+              <option key={profile} value={profile}>
+                {PROFILES[profile as Profile]}
+              </option>
             ))}
           </select>
         </div>
