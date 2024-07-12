@@ -1,0 +1,13 @@
+.loading {
+    animation: loading-plane 5s infinite;
+}
+
+@keyframes loading-plane {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(1200px - 1em));
+    }
+}
