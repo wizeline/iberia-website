@@ -10,7 +10,7 @@ export default async function handler(
   _res: NextApiResponse<GenerateResponse>,
 ) {
   const requestBody = JSON.parse(_req.body);
-  console.log(process.env.OPENAI_API_KEY);
+  console.log('Body: ', requestBody.prompt);
   /*const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   const res = await fetch(`${serverUrl}/generate`, {
     method: 'POST',

@@ -46,8 +46,8 @@ const AdminPage = () => {
       method: 'POST',
       body: JSON.stringify(formData),
     });
-    const data = await response.json();
     if (response.status === 200) {
+      const data = await response.json();
       setGeneratedImgUrl(data.imageData);
 
       const newSavedUrls = addUrl(
@@ -58,7 +58,7 @@ const AdminPage = () => {
       );
       setSavedUrls(newSavedUrls);
     } else {
-      console.error('Error generating image', data.imageData);
+      console.error('Error generating image', await response.text());
     }
   }
 
