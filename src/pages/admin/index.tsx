@@ -26,6 +26,7 @@ const AdminPage = () => {
     'iberiaPoc-imgUrls',
     {},
   );
+  const [successfullySaved, setSuccessfullySaved] = useState(false);
 
   useEffect(() => {
     setPrompt(getPrompt(profile, destination));
@@ -67,6 +68,10 @@ const AdminPage = () => {
       savedUrls,
     );
     setSavedUrls(newSavedUrls);
+    setSuccessfullySaved(true);
+    setTimeout(() => {
+      setSuccessfullySaved(false);
+    }, 3000);
     console.log('Response: ', response);
   }
 
@@ -129,6 +134,11 @@ const AdminPage = () => {
             <div className="border-2 iberia-border-color p-2">
               <img src={generatedImgUrl} alt="Imagen generada con IA" />
               <div className="flex justify-end gap-2 mt-2">
+                {successfullySaved && (
+                  <p className="text-green-500">
+                    Imagen guardada correctamente
+                  </p>
+                )}
                 <button onClick={onSaveClick}>Guardar imagen</button>
                 <button onClick={onGenerateClick}>Re-generar</button>
               </div>
