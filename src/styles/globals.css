@@ -4,7 +4,7 @@
 
 :root {
     /* Variables */
-    --iberia-background-color: #d7192d;
+    --iberia-color: #d7192d;
 
     /* Typography */
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -22,8 +22,11 @@
 
 @layer components{
   .iberia-bg-color {
-    background-color: var(--iberia-background-color);
+    background-color: var(--iberia-color);
   }
+    .iberia-border-color {
+        border-color: var(--iberia-color);
+    }
 }
 
 body {

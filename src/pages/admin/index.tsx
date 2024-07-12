@@ -124,14 +124,14 @@ const AdminPage = () => {
               <img className={styles.loading} src="/plane.svg" alt="Avión" />
             </div>
           )}
-          {generatedImgUrl && (
-            <>
+          {generatedImgUrl.length > 0 && (
+            <div className="border-2 iberia-border-color p-2">
               <img src={generatedImgUrl} alt="Imagen generada con IA" />
-              <div className="flex justify-end gap-2">
+              <div className="flex justify-end gap-2 mt-2">
                 <button onClick={onSaveClick}>Guardar imagen</button>
                 <button onClick={onGenerateClick}>Re-generar</button>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>
