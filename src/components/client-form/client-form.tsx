@@ -20,16 +20,22 @@ const ClientForm = () => {
   function retrieveRelevantUrls() {
     retrieveApiRequest()
       .then((response) => {
-        response.json().then((data) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            setRelevantUrls(
+              data
+                .filter(
+                  (obj: RetrieveResponse) =>
+                    obj.tag === profile && obj.destination === destination,
+                )
+                .map((obj: RetrieveResponse) => obj.url),
+            );
+          });
+        } else {
           setRelevantUrls(
-            data
-              .filter(
-                (obj: RetrieveResponse) =>
-                  obj.tag === profile && obj.destination === destination,
-              )
-              .map((obj: RetrieveResponse) => obj.url),
+            savedUrls[getLocalStorageKey(profile, destination)] || [],
           );
-        });
+        }
       })
       .catch(() => {
         setRelevantUrls(
@@ -69,7 +75,9 @@ const ClientForm = () => {
             onChange={(e) => setProfile(e.currentTarget.value as Profile)}
           >
             {Object.keys(PROFILES).map((profile) => (
-              <option key={profile}>{profile}</option>
+              <option key={profile} value={profile}>
+                {PROFILES[profile as Profile]}
+              </option>
             ))}
           </select>
         </div>

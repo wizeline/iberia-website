@@ -98,7 +98,9 @@ const AdminPage = () => {
               }
             >
               {Object.keys(PROFILES).map((profile) => (
-                <option key={profile}>{profile}</option>
+                <option key={profile} value={profile}>
+                  {PROFILES[profile as Profile]}
+                </option>
               ))}
             </select>
           </div>
