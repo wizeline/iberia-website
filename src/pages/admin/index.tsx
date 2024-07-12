@@ -49,14 +49,6 @@ const AdminPage = () => {
     if (response.status === 200) {
       const data = await response.json();
       setGeneratedImgUrl(data.imageData);
-
-      const newSavedUrls = addUrl(
-        profile,
-        destination,
-        data.imageData,
-        savedUrls,
-      );
-      setSavedUrls(newSavedUrls);
     } else {
       console.error('Error generating image', await response.text());
     }
@@ -68,6 +60,13 @@ const AdminPage = () => {
       profile,
       destination,
     );
+    const newSavedUrls = addUrl(
+      profile,
+      destination,
+      generatedImgUrl,
+      savedUrls,
+    );
+    setSavedUrls(newSavedUrls);
     console.log('Response: ', response);
   }
 

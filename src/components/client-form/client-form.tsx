@@ -1,14 +1,16 @@
 import Header from '@/components/header/header';
 import { DESTINATIONS, PROFILES } from '@/constants';
-import { Profile } from '@/types';
+import { LocalStorageImgUrls, Profile } from '@/types';
 import { useEffect, useState } from 'react';
 import { retrieveApiRequest, RetrieveResponse } from '@/pages/api/retrieve';
+import { useLocalStorage } from 'usehooks-ts';
+import { getLocalStorageKey } from '@/utils';
 
 const ClientForm = () => {
-  /*const [savedUrls] = useLocalStorage<LocalStorageImgUrls>(
+  const [savedUrls] = useLocalStorage<LocalStorageImgUrls>(
     'iberiaPoc-imgUrls',
     {},
-  );*/
+  );
   const [destination, setDestination] = useState(DESTINATIONS[0]);
   const [profile, setProfile] = useState<Profile>(
     Object.keys(PROFILES)[0] as Profile,
@@ -16,18 +18,24 @@ const ClientForm = () => {
   const [relevantUrls, setRelevantUrls] = useState<string[]>([]);
 
   function retrieveRelevantUrls() {
-    retrieveApiRequest().then((response) => {
-      response.json().then((data) => {
+    retrieveApiRequest()
+      .then((response) => {
+        response.json().then((data) => {
+          setRelevantUrls(
+            data
+              .filter(
+                (obj: RetrieveResponse) =>
+                  obj.tag === profile && obj.destination === destination,
+              )
+              .map((obj: RetrieveResponse) => obj.url),
+          );
+        });
+      })
+      .catch(() => {
         setRelevantUrls(
-          data
-            .filter(
-              (obj: RetrieveResponse) =>
-                obj.tag === profile && obj.destination === destination,
-            )
-            .map((obj: RetrieveResponse) => obj.url),
+          savedUrls[getLocalStorageKey(profile, destination)] || [],
         );
       });
-    });
   }
 
   useEffect(() => {
