@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { retrieveApiRequest, RetrieveResponse } from '@/pages/api/retrieve';
 import { useLocalStorage } from 'usehooks-ts';
 import { getLocalStorageKey } from '@/utils';
+import Card from '../card/card';
+
 
 const ClientForm = () => {
   const [savedUrls] = useLocalStorage<LocalStorageImgUrls>(
@@ -16,32 +18,20 @@ const ClientForm = () => {
     Object.keys(PROFILES)[0] as Profile,
   );
   const [relevantUrls, setRelevantUrls] = useState<string[]>([]);
+  const [destinations, setDestinations] = useState<RetrieveResponse[]>();
 
   function retrieveRelevantUrls() {
     retrieveApiRequest()
       .then((response) => {
         if (response.status === 200) {
           response.json().then((data) => {
-            setRelevantUrls(
+            setDestinations(
               data
-                .filter(
-                  (obj: RetrieveResponse) =>
-                    obj.tag === profile && obj.destination === destination,
-                )
-                .map((obj: RetrieveResponse) => obj.url),
             );
           });
-        } else {
-          setRelevantUrls(
-            savedUrls[getLocalStorageKey(profile, destination)] || [],
-          );
-        }
-      })
-      .catch(() => {
-        setRelevantUrls(
-          savedUrls[getLocalStorageKey(profile, destination)] || [],
-        );
+        } 
       });
+      
   }
 
   useEffect(() => {
@@ -74,18 +64,18 @@ const ClientForm = () => {
             className="border-2 p-2"
             onChange={(e) => setProfile(e.currentTarget.value as Profile)}
           >
-            {Object.keys(PROFILES).map((profile) => (
-              <option key={profile} value={profile}>
-                {PROFILES[profile as Profile]}
-              </option>
+            {Object.entries(PROFILES).map((profile) => (
+              <option key={profile[0]} value={profile[0]} >{profile[1]}</option>
             ))}
           </select>
         </div>
       </div>
-      {relevantUrls.length > 0 && (
-        <div className="w-[1200px] mt-4 m-auto flex flex-col gap-4">
-          {relevantUrls.map((url) => (
-            <img key={url} src={url} alt="Imagen generada" />
+      {destinations !=null && (
+        <div className="w-[1200px] mt-4 m-auto flex gap-4">
+          {destinations
+          .filter(destination2=>( destination2.tag===profile))
+          .map((destination1:RetrieveResponse) => (
+            <Card image={destination1.url} title={destination1.destination} price={42}/>
           ))}
         </div>
       )}
