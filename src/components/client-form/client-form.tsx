@@ -46,7 +46,7 @@ const ClientForm = () => {
         </div>
       </div>
       {destinations != null && (
-        <div className="w-[1200px] mt-4 m-auto flex gap-4">
+        <div className="w-[1200px] mt-4 m-auto flex gap-2">
           {destinations
             .filter((destination2) => destination2.tag === profile)
             .map((destination1: RetrieveResponse) => (
