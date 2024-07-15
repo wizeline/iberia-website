@@ -4,12 +4,18 @@ import { Profile } from '@/types';
 import { useEffect, useState } from 'react';
 import { retrieveApiRequest, RetrieveResponse } from '@/pages/api/retrieve';
 import Card from '../card/card';
+import Portal from '../portal/portal';
 
 const ClientForm = () => {
   const [profile, setProfile] = useState<Profile>(
     Object.keys(PROFILES)[0] as Profile,
   );
   const [destinations, setDestinations] = useState<RetrieveResponse[]>();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   function retrieveRelevantDestinations() {
     retrieveApiRequest().then((response) => {
@@ -32,17 +38,19 @@ const ClientForm = () => {
       <Header />
       <div className="w-[1200px] m-auto pt-2 flex justify-between">
         <div className="w-fit">
-          <label className="mr-4">Perfil usuario:</label>
-          <select
-            className="border-2 p-2"
-            onChange={(e) => setProfile(e.currentTarget.value as Profile)}
-          >
-            {Object.entries(PROFILES).map((profile) => (
-              <option key={profile[0]} value={profile[0]}>
-                {profile[1]}
-              </option>
-            ))}
-          </select>
+        {isMounted && (
+            <Portal>
+                <select
+                    className="mb-2 iberia-bg-color text-white font-bold"
+                    onChange={(e) => setProfile(e.currentTarget.value as Profile)}
+                >
+                {Object.entries(PROFILES).map((profile) => (
+                  <option key={profile[0]} value={profile[0]}>
+                    {profile[1]}
+                  </option>
+                ))}
+                </select>
+            </Portal>)}
         </div>
       </div>
       {destinations != null && (
