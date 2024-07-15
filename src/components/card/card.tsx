@@ -8,15 +8,17 @@ interface CardProps {
   profile: string;
 }
 
-const Card: React.FC<CardProps> = ({ image, title, price , profile}) => {
-    const router = useRouter();
-    const handleCardClick = () => {
-        router.push(`/detail/${title}/${profile}`);
-    };
- 
+const Card: React.FC<CardProps> = ({ image, title, price, profile }) => {
+  const router = useRouter();
+  const handleCardClick = () => {
+    router.push(`/detail/${title}/${profile}`);
+  };
+
   return (
     <div className={styles.card} onClick={handleCardClick}>
-      <img src={image} alt={title} className={styles.card_image} />
+      <div className={styles.card_image_holder}>
+        <img src={image} alt={title} className={styles.card_image} />
+      </div>
       <div className={styles.card_content}>
         <h2>{title}</h2>
         <p>Round trip price from</p>
