@@ -17,8 +17,7 @@ export default async function handler(
   _req: NextApiRequest,
   _res: NextApiResponse<string>,
 ) {
-  const requestBody = JSON.parse(_req.body);
-  console.log('Body: ', requestBody);
+  console.log('Body: ', JSON.parse(_req.body));
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   const res = await fetch(`${serverUrl}/save`, {
     method: 'POST',
