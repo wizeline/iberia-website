@@ -12,6 +12,7 @@ export function retrieveApiRequest(): Promise<Response> {
   return fetch('/api/retrieve', { method: 'GET' });
 }
 
+
 export default async function handler(
   _req: NextApiRequest,
   _res: NextApiResponse<RetrieveResponse[]>,

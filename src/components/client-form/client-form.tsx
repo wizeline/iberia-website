@@ -46,18 +46,7 @@ const ClientForm = () => {
   return (
     <>
       <Header />
-      <div className="w-[1200px] m-auto pt-2 flex justify-between">
-        <div className="w-fit">
-          <label className="mr-4">Destino:</label>
-          <select
-            className="border-2 p-2"
-            onChange={(e) => setDestination(e.currentTarget.value)}
-          >
-            {DESTINATIONS.map((destination) => (
-              <option key={destination}>{destination}</option>
-            ))}
-          </select>
-        </div>
+      <div className="w-[1200px] m-auto pt-2 flex justify-between">        
         <div className="w-fit">
           <label className="mr-4">Perfil usuario:</label>
           <select
