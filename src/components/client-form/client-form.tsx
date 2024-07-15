@@ -75,7 +75,8 @@ const ClientForm = () => {
           {destinations
           .filter(destination2=>( destination2.tag===profile))
           .map((destination1:RetrieveResponse) => (
-            <Card image={destination1.url} title={destination1.destination} price={42}/>
+            <Card image={destination1.url} title={destination1.destination} price={42}
+            profile={profile}/>
           ))}
         </div>
       )}

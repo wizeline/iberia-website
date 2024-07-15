@@ -1,13 +1,21 @@
 import styles from './card.module.css';
+import { useRouter } from 'next/router';
+
 interface CardProps {
   image: string;
   title: string;
   price: number;
+  profile: string;
 }
+
+const Card: React.FC<CardProps> = ({ image, title, price , profile}) => {
+    const router = useRouter();
+    const handleCardClick = () => {
+        router.push(`/detail/${title}/${profile}`);
+    };
  
-const Card: React.FC<CardProps> = ({ image, title, price }) => {
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleCardClick}>
       <img src={image} alt={title} className={styles.card_image} />
       <div className={styles.card_content}>
         <h2>{title}</h2>
