@@ -16,6 +16,12 @@ const routes = [
 
 const Header = () => {
   const router = useRouter();
+  const isRouteActive = (route: string): boolean => {
+    return (
+      (route === '/' && router.asPath === '/') ||
+      (route !== '/' && router.asPath.startsWith('/admin'))
+    );
+  };
 
   return (
     <div className={styles.header__wrapper + ' iberia-bg-color p-4'}>
@@ -31,7 +37,7 @@ const Header = () => {
             <span key={route.name}>
               <Link
                 href={route.href}
-                className={router.asPath === route.href ? 'font-bold' : ''}
+                className={isRouteActive(route.href) ? 'font-bold' : ''}
               >
                 {route.name}
               </Link>
