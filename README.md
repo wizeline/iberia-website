@@ -46,6 +46,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+There's a second repository that we use to deploy this project on Vercel. You can find it [here](https://github.com/wizeline/iberia-website-fe-deploy).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Deployment is really easy, just add this new repo:
+
+If you use HTTPS:
+```bash
+git remote add deploy https://github.com/wizeline/iberia-website-fe-deploy.git
+```
+
+If you use SSH:
+```bash
+git remote add deploy git@github.com:wizeline/iberia-website-fe-deploy.git
+```
+
+And then push to the `deploy` remote:
+
+```bash
+git push deploy main
+```
+
+The project will be deployed on Vercel and you can access it on [https://iberia-website-fe-deploy.vercel.app/](https://iberia-website-fe-deploy.vercel.app/).
