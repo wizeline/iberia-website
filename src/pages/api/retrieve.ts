@@ -12,7 +12,6 @@ export function retrieveApiRequest(): Promise<Response> {
   return fetch('/api/retrieve', { method: 'GET' });
 }
 
-
 export default async function handler(
   _req: NextApiRequest,
   _res: NextApiResponse<RetrieveResponse[]>,
@@ -20,7 +19,12 @@ export default async function handler(
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   const res = await fetch(`${serverUrl}/retrieve`, {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers':
+        'Origin, X-Requested-With, Content-Type, Accept',
+    },
   });
   const json = await res.json();
   console.log('Retrieve: ', json);
