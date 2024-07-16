@@ -1,4 +1,4 @@
-export type Profile = 'family' | 'young' | 'business';
+export type Profile = 'family' | 'youth' | 'business';
 
 export type Engine = 'open' | 'free';
 
