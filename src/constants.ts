@@ -6,11 +6,11 @@ export const PROFILES: Record<Profile, string> = {
   business: 'Business traveler',
 };
 export const DESTINATIONS = [
-  'Amsterdam, Netherlands',
-  'Barcelona, Spain',
-  'London, United Kingdom',
-  'Paris, France',
-  'Rome, Italy',
+  'Amsterdam',
+  'Barcelona',
+  'London',
+  'Paris',
+  'Rome',
 ];
 
 export const ENGINES: Record<Engine, string> = {
