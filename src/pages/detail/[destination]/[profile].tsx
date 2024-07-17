@@ -5,14 +5,23 @@ import {
   RetrieveResponse,
   retrieveVideoApiRequest,
 } from '@/pages/api/retrievevideo';
+import { descriptionApiRequest } from '@/pages/api/description';
 
 const AdminPage = () => {
-  const [videos, setVideos] = useState<RetrieveResponse[]>([]);
-
   const router = useRouter();
   const { destination, profile } = router.query;
+  const [videos, setVideos] = useState<RetrieveResponse[]>([]);
+  const [season, setSeason] = useState('summer');
+  const [days, setDays] = useState(1);
+
   const handleBackClick = () => {
     router.push(`/`);
+  };
+
+  const handleSearchClick = async () => {
+    const prompt = `Could you recommend activities to do in ${destination} as a ${profile} during ${season} for ${days} days? Please give me the answer in Spanish.`;
+    const description = await descriptionApiRequest(prompt);
+    console.log('description:', description);
   };
 
   function retrieveVideo() {
@@ -74,16 +83,21 @@ const AdminPage = () => {
           />
         }
 
-        <div className="absolute top-[50%] left-[50%] bg-white shadow-2xl z-10 p-4">
+        <div className="absolute top-[33%] left-[37%] w-[25%] bg-white shadow-2xl z-10 p-4">
           <h1>Cheap flights to {destination} 42€</h1>
           <div className="mt-2">
             <div>
               <label className="mr-2">¿Cuándo vas?</label>
-              <select className="border-2 p-2 text-black">
-                <option>Primavera</option>
-                <option selected={true}>Verano</option>
-                <option>Otoño</option>
-                <option>Invierno</option>
+              <select
+                className="border-2 p-2 text-black"
+                onChange={(e) => setSeason(e.currentTarget.value)}
+              >
+                <option value="spring">Primavera</option>
+                <option value="summer" selected={true}>
+                  Verano
+                </option>
+                <option value="autumn">Otoño</option>
+                <option value="winter">Invierno</option>
               </select>
             </div>
             <div className="mt-4">
@@ -93,10 +107,15 @@ const AdminPage = () => {
                 className="border-2 p-2 text-black w-20"
                 size={2}
                 maxLength={2}
+                value={days}
+                onChange={(e) => setDays(parseInt(e.currentTarget.value))}
               />
             </div>
             <div className="text-right">
-              <button className="px-2 py-4 mt-2 border-0 iberia-bg-color color-white cursor-pointer">
+              <button
+                className="px-2 py-4 mt-2 border-0 iberia-bg-color color-white cursor-pointer"
+                onClick={handleSearchClick}
+              >
                 <img
                   src="/search.svg"
                   alt="search"
