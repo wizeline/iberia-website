@@ -140,7 +140,8 @@ const AdminPage = () => {
           ></textarea>
         </div>
         <div className="flex justify-end gap-2">
-          <button onClick={onGenerateClick}>Generar</button>
+          <button>Generar Vídeo</button>
+          <button onClick={onGenerateClick}>Generar Imagen</button>
         </div>
         <div className="mt-4">
           {loading && (
