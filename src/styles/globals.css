@@ -24,9 +24,12 @@
   .iberia-bg-color {
     background-color: var(--iberia-color);
   }
-    .iberia-border-color {
-        border-color: var(--iberia-color);
-    }
+  .iberia-text-color {
+    color: var(--iberia-color);
+  }
+  .iberia-border-color {
+      border-color: var(--iberia-color);
+  }
 }
 
 body {
@@ -38,6 +41,12 @@ body {
 h1 {
     @apply text-2xl mb-2;
 }
+h2 {
+  @apply text-xl font-bold iberia-text-color mb-2;
+}
+h3 {
+    @apply font-bold iberia-text-color mt-2;
+}
 
 input {
     @apply border-2 p-2;
@@ -45,4 +54,12 @@ input {
 
 button {
     @apply iberia-bg-color text-white p-2;
+}
+
+ul {
+    @apply list-disc px-8 text-left w-fit m-auto;
+
+  li > ul {
+    @apply list-disc pl-4 pr-0 text-left w-fit m-auto;
+  }
 }
